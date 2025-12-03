@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PetCheat HackIt – Instructions</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #ffe4f1, #ffd5eb);
+            color: #4a4a4a;
+            text-align: center;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: #6d6d6d;
+            margin-bottom: 30px;
+        }
+
+        .objective-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .objective-box h2 {
+            color: #d63384;
+            font-size: 1.4rem;
+        }
+
+        .objective-box p {
+            line-height: 1.6;
+        }
+
+        .btn-container {
+            margin: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 25px;
+            margin: 10px;
+            background: #d63384;
+            color: #fff;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.25s;
+            box-shadow: 0px 4px 10px rgba(214, 51, 132, 0.4);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 12px rgba(214, 51, 132, 0.6);
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #6d6d6d;
+        }
+
+        .footer-line {
+            width: 60%;
+            margin: 20px auto;
+            height: 1px;
+            background: #e5a3c3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🐾 HackIt Instructions</h1>
+<p class="subtitle">Your mission is to hack the pet game using real security flaws.</p>
+
+<!-- Objective List -->
+<div class="objective-box">
+    <h2>🎯 Objective 1 — Find the Hidden Admin Page</h2>
+    <p><strong>Category:</strong> OWASP A01 – Broken Access Control</p>
+    <p>Somewhere in the files, there is a link or clue revealing an admin page that should not be public. Find it and open it.</p>
+</div>
+
+<div class="objective-box">
+    <h2>🎯 Objective 2 — Give Yourself 10,000 Coins</h2>
+    <p><strong>Category:</strong> A01 / A02</p>
+    <p>Without playing the game, find a way to increase your coins. Manipulate localStorage, the admin panel, or the save file.</p>
+</div>
+
+<div class="objective-box">
+    <h2>🎯 Objective 3 — Trigger an XSS Pop-Up</h2>
+    <p><strong>Category:</strong> OWASP A03 – Injection</p>
+    <p>Use the search bar in the shop to inject JavaScript so that an alert window appears.</p>
+</div>
+
+<div class="objective-box">
+    <h2>🎯 Objective 4 — Buy the Golden Bed for 0 Coins</h2>
+    <p><strong>Category:</strong> Client-Side Manipulation</p>
+    <p>The Golden Bed costs 10,000 coins. Use DevTools or the admin page to bypass this restriction.</p>
+</div>
+
+<div class="objective-box">
+    <h2>🎯 Objective 5 — Modify the Save File</h2>
+    <p><strong>Category:</strong> A02 – Cryptographic Failures</p>
+    <p>Download your save file, decode it, edit the JSON, and load it back to change your pet’s happiness to 999.</p>
+</div>
+
+<div class="objective-box">
+    <h2>🎯 Objective 6 — DOM Injection</h2>
+    <p><strong>Category:</strong> A03 – DOM XSS</p>
+    <p>Add your own HTML message to the game without modifying any actual files.</p>
+</div>
+
+<!-- Buttons -->
+<div class="btn-container">
+    <a class="btn" href="game.html">Start Game</a>
+    <a class="btn" href="index.html">Back Home</a>
+</div>
+
+<footer>
+    <div class="footer-line"></div>
+    © 2025 PetCheat HackIt — Built for educational cybersecurity training
+</footer>
+
+</body>
+</html>
