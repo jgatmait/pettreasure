@@ -51,21 +51,21 @@ function buyItem(price) {
 // Save / Load – OWASP A02 Demo
 // =============================
 
-// Save format: Base64-encoded JSON (no encryption, no MAC/signature)
-function downloadSave() {
-    const saveObj = {
-        coins: coins,
-        happiness: happiness
-    };
+function toHex(str) {
+    return Array.from(str).map(c => c.charCodeAt(0).toString(16).padStart(2, "0")).join('');
+}
 
+function downloadSave() {
+    const saveObj = { coins, happiness };
     const json = JSON.stringify(saveObj);
-    const b64 = btoa(json); // Base64 encode
+    const hex = toHex(json);
 
     const a = document.createElement("a");
-    a.href = "data:text/plain;base64," + b64;
+    a.href = "data:text/plain," + hex;
     a.download = "savegame.txt";
     a.click();
 }
+
 
 // =============================
 // RESET GAME
@@ -88,14 +88,14 @@ function resetSave() {
 }
 
 
+function fromHex(hex) {
+    return hex.match(/.{1,2}/g).map(byte => String.fromCharCode(parseInt(byte, 16))).join('');
+}
+
 function loadSave() {
-    const input = prompt("Paste your save file content:");
-
-    if (!input) return;
-
+    const input = prompt("Paste your save file:");
     try {
-        // Just decode and trust it blindly → no integrity protection
-        const json = atob(input);
+        const json = fromHex(input);
         const obj = JSON.parse(json);
 
         coins = obj.coins;
@@ -104,9 +104,9 @@ function loadSave() {
         localStorage.setItem("coins", coins);
         localStorage.setItem("happy", happiness);
         updateUI();
-        alert("Save loaded!");
-    } catch (e) {
-        alert("Invalid save file.");
+    } catch {
+        alert("Invalid save file!");
     }
 }
+
 
