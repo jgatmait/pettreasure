@@ -7,6 +7,11 @@
 let coins = parseInt(localStorage.getItem("coins") || "50");
 let happiness = parseInt(localStorage.getItem("happy") || "50");
 
+function revealFlag(flagId, text) {
+    const box = document.getElementById(flagId);
+    if (box) box.innerText = text;
+}
+
 function updateUI() {
     const coinsSpan = document.getElementById("coins");
     if (coinsSpan) coinsSpan.innerText = coins;
@@ -18,10 +23,7 @@ function updateUI() {
 // Initialize on load
 updateUI();
 
-function revealFlag(flagId, text) {
-    const box = document.getElementById(flagId);
-    if (box) box.innerText = text;
-}
+
 
 
 // =============================
