@@ -23,7 +23,7 @@
 
 <div id="content" class="card" style="display:none">
     <p>
-        “The final shard only opens if my happiness is above <strong>80</strong>,” your pet says.
+        “The final shard only opens if my happiness is over <strong>9000</strong>,” your pet says.
         “But this button barely increases it…”
     </p>
 
@@ -59,7 +59,7 @@ final_evolution.html?final=blobQueen
 
     function updateDisplay() {
         document.getElementById("happyValue").innerText = happiness;
-        if (happiness > 80) {
+        if (happiness > 9000) {
             document.getElementById("message").innerText = "You feel ready!";
             document.getElementById("nextClue").style.display = "block";
         } else {
