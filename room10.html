@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room 10 – Weak Hash Shard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Chapter 10 – The Weak Hash</h1>
+<p class="subtitle">
+    A mysterious stone displays a hash… but the system is embarrassingly weak.
+</p>
+
+<img src="res/pet_stage4.png" alt="Adult Blob" class="pet-img">
+
+<div id="locked" class="card" style="display:none">
+    <p class="locked">Missing parameter></p>
+</div>
+
+<div id="content" class="card" style="display:none">
+    <p>
+        A glowing tablet reads:
+    </p>
+
+    <pre id="hashBlock"></pre>
+
+    <p>
+        “This hash must correspond to a secret word,” your pet says, “but… the system is flawed.”
+    </p>
+
+    <input id="guess" type="text" placeholder="Enter word">
+    <button class="btn" onclick="checkGuess()">Submit</button>
+
+    <p id="msg" style="margin-top:15px;"></p>
+
+    <div id="nextClue" style="display:none; margin-top:20px;">
+        <p><strong>You've cracked the weak hash! Next room:</strong></p>
+        <pre>room11.html?key=cssReveal</pre>
+    </div>
+
+    <p style="margin-top:15px;">
+        <em>Hint: Check how the hash is calculated in the code. It's not really a hash...</em>
+    </p>
+</div>
+
+<a class="btn" href="index.html">Back Home</a>
+
+<script>
+// Access control
+const params = new URLSearchParams(window.location.search);
+if (params.get("key") !== "weakHash") {
+    document.getElementById("locked").style.display = "block";
+} else {
+    document.getElementById("content").style.display = "block";
+}
+
+// Weak hash definition
+function weakHash(x) { return x.length; }
+
+// Generate a target hash (length)
+const SECRET_LENGTH = 7; 
+document.getElementById("hashBlock").innerText =
+`Hash: ${SECRET_LENGTH}
+(Algorithm: weakHash(x) = x.length)`;
+
+// When user guesses
+function checkGuess() {
+    const g = document.getElementById("guess").value;
+    if (weakHash(g) == SECRET_LENGTH) {
+        document.getElementById("nextClue").style.display = "block";
+        document.getElementById("msg").innerText = "Correct length!";
+    } else {
+        document.getElementById("msg").innerText = "Incorrect. Try matching the hash exactly.";
+    }
+}
+
+// Students can cheat:
+// document.getElementById("nextClue").style.display = "block";
+</script>
+
+</body>
+</html>
