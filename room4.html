@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room 4 – Encoded Shard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Chapter 4 – The Encoded Shard</h1>
+<p class="subtitle">
+    The shard here is unreadable at first glance. Can you decode it?
+</p>
+
+<img src="res/pet_stage3.png" alt="Teen Blob" class="pet-img">
+
+<div id="locked" class="card" style="display:none">
+    <p class="locked">
+        This page is locked. Did you come here with the correct URL parameter?
+       
+    </p>
+</div>
+
+<div id="content" class="card" style="display:none">
+    <p>
+        Your pet stares at a floating fragment of text. “Humans call this ‘encoding’,” it says.
+    </p>
+    <p>
+        The shard reads:
+    </p>
+
+    <pre>
+cm9vbTUuaHRtbD9rZXk9Y3V0ZUhhY2s=
+    </pre>
+
+    <p><em>Hint: Try a Base64 decoder online.</em></p>
+</div>
+
+<a class="btn" href="index.html">Back Home</a>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    if (code !== "evo4u") {
+        document.getElementById("locked").style.display = "block";
+    } else {
+        document.getElementById("content").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
