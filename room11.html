@@ -2,65 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Room 11 – The Hidden CSS Shard</title>
+    <title>Room 11 – The Lost Pet Registry</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* The shard text is invisible via indentation */
-        #secretShard {
-            text-indent: -9999px;
-            white-space: nowrap;
-            display: block;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        /* Only visible in portrait (or if user edits CSS) */
-        @media (orientation: portrait) {
-            #secretShard {
-                text-indent: 0;
-            }
-        }
-    </style>
 </head>
 <body>
 
-<h1>Chapter 11 – The CSS Veil</h1>
+<h1>Chapter 11 – The Lost Pet Registry</h1>
 <p class="subtitle">
-    Something is hidden on this page… not by script, but by style.
+    Your pet senses the final shard… but it's stored somewhere unsafe.
 </p>
 
 <img src="res/pet_stage4.png" alt="Adult Blob" class="pet-img">
 
-<div id="locked" class="card" style="display:none">
-    <p class="locked">Missing parameter></p>
+<!-- Locked message -->
+<div id="locked" class="card" style="display:none;">
+    <p class="locked">
+        Access denied. Missing correct key.<br>
+        (Try solving the previous room first!)
+    </p>
 </div>
 
-<div id="content" class="card" style="display:none">
+<!-- Main content -->
+<div id="content" class="card" style="display:none;">
     <p>
-        “I can *feel* the shard on this page,” your pet says. “But I can’t <em>see</em> it.”
-    </p>
-    <p>
-        Perhaps the humans hid it with CSS… Try rotating your device or inspecting the element.
+        Your pet finds an old *Pet Registry* API.  
+        “If only we could access my file… maybe it contains our last shard.”
     </p>
 
-    <!-- Hidden shard -->
-    <div id="secretShard">
-        final_evolution.html?final=blobQueen
+    <p><strong>Pet Info (loaded from API):</strong></p>
+    <pre id="petData">Loading...</pre>
+
+    <p>
+        <em>Hint: DevTools → Network → Look at the request made to <code>res/pets/</code>.  
+        The ID might be… predictable.</em>
+    </p>
+
+    <p>
+        Try changing <code>?id=</code> in the API URL to access another pet’s data.
+    </p>
+
+    <!-- Final clue (hidden) -->
+    <div id="finalClue" style="display:none; margin-top:20px;">
+        <p><strong>You found the forgotten pet entry!</strong></p>
+        <pre>final_evolution.html?final=blobQueen</pre>
     </div>
 
-    <p style="margin-top:20px;">
-        <em>Hint: Inspect element and remove <code>text-indent</code>, or rotate into portrait view.</em>
-    </p>
 </div>
 
 <a class="btn" href="index.html">Back Home</a>
 
 <script>
+// Check key
 const params = new URLSearchParams(window.location.search);
-if (params.get("key") !== "cssReveal") {
+if (params.get("key") !== "idorTime") {
     document.getElementById("locked").style.display = "block";
 } else {
     document.getElementById("content").style.display = "block";
+
+    // Default ID: user's pet = id=1
+    const id = params.get("id") || 1;
+
+    fetch(`res/pets/pet${id}.json`)
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("petData").innerText = JSON.stringify(data, null, 2);
+
+            // The "secret" pet is ID 5
+            if (id == 5) {
+                document.getElementById("finalClue").style.display = "block";
+            }
+        })
+        .catch(() => {
+            document.getElementById("petData").innerText = "Error loading pet data.";
+        });
 }
 </script>
 
