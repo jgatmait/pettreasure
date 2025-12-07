@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Evolution – Blob Queen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Final Evolution – Blob Queen 🌟</h1>
+<p class="subtitle">
+    You guided your pet through every vulnerability and puzzle. Time for the final form.
+</p>
+
+<img src="res/pet_stage5.png" alt="Final Blob" class="pet-img">
+
+<div id="locked" class="card" style="display:none">
+    <p class="locked">
+        This page is meant to be accessed via the correct final URL parameter:
+        <code>?final=blobQueen</code>.
+    </p>
+</div>
+
+<div id="content" class="card" style="display:none">
+    <p>
+        Your pet glows with radiant pink light. “Thank you,” it says.
+        “You learned how fragile client-side security can be – and helped me evolve.”
+    </p>
+
+    <h3>What you exploited along the way</h3>
+    <ul>
+        <li>Hidden but unprotected admin page (Broken Access Control)</li>
+        <li>localStorage manipulation (Trusting client storage)</li>
+        <li>XSS via unsafe <code>innerHTML</code> (Injection)</li>
+        <li>Base64-encoded (but not protected) clue</li>
+        <li>Editable JSON save data with no integrity checking</li>
+        <li>DOM injection to trigger hidden logic</li>
+        <li>JavaScript logic bypass / override</li>
+    </ul>
+
+    <p>
+        <strong>Lesson:</strong> Never trust the client. Always validate and enforce on the server side – and design assuming the user can see and change everything in the browser.
+    </p>
+</div>
+
+<a class="btn" href="index.html">Back Home</a>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("final");
+
+    if (key !== "blobQueen") {
+        document.getElementById("locked").style.display = "block";
+    } else {
+        document.getElementById("content").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
