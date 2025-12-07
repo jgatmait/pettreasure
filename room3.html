@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room 3 – Snack Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Chapter 3 – The Dangerous Snack Search</h1>
+<p class="subtitle">
+    Your pet is hungry. The search feature seems a bit… unprotected.
+</p>
+
+<img src="res/pet_stage2.png" alt="Child Blob" class="pet-img">
+
+<div id="locked" class="card" style="display:none">
+    <p class="locked">
+        This page is locked. Did you come here with the correct URL parameter?
+        (Example: <code>room3.html?xssKey=bl0b1337</code>)
+    </p>
+</div>
+
+<div id="content" class="card" style="display:none">
+    <p>
+        “Type my favorite snack,” your pet says. “Or… maybe type something more… dangerous?”
+    </p>
+
+    <input id="searchInput" type="text" placeholder="Search snack...">
+    <button class="btn" onclick="doSearch()">Search</button>
+
+    <div id="searchResults" style="margin-top:15px;"></div>
+
+    <div id="nextClue" style="display:none; margin-top:15px;">
+        <p><strong>Your injected script reveals the next location:</strong></p>
+        <pre>
+room4.html?code=evo4u
+        </pre>
+    </div>
+
+    <p><em>Hint: What happens if the search field contains HTML or &lt;script&gt; tags?</em></p>
+</div>
+
+<a class="btn" href="index.html">Back Home</a>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("xssKey");
+    const lockedBox = document.getElementById("locked");
+    const contentBox = document.getElementById("content");
+
+    if (key !== "bl0b1337") {
+        lockedBox.style.display = "block";
+    } else {
+        contentBox.style.display = "block";
+    }
+
+    function doSearch() {
+        const q = document.getElementById("searchInput").value;
+        const results = document.getElementById("searchResults");
+
+        // Intentionally vulnerable: unsanitized innerHTML
+        results.innerHTML = "You searched for: " + q;
+
+        // Simple detection: if they include <script, we assume they did XSS
+        if (q.toLowerCase().includes("<script")) {
+            document.getElementById("nextClue").style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
